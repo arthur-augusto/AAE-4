@@ -47,6 +47,14 @@ def addEvento(nomeEvento, dataHoraInicio, dataHoraTermino):
     agenda.append(evento)
     print("Evento adicionado com sucesso.")
 
+def removerEvento(nomeEvento):
+    for evento in agenda:
+        if evento['nome'].lower() == nomeEvento.lower():
+            agenda.remove(evento)
+            print(f"Evento '{nomeEvento}' removido com sucesso.")
+            return
+    print(f"Erro: Evento '{nomeEvento}' não encontrado.")
+
 def main():
     while True:
         resposta = input("Digite a ação (adicionar, remover, mostrar, sair): ")
