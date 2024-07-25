@@ -1,6 +1,11 @@
 from datetime import datetime
 
-agenda = []
+agenda = [{
+
+    "nome": "Reunião de equipe",
+    "inicio": "2021-10-01 09:00",
+    "termino": "2021-10-01 10:00"
+}]
 
 def validarDataHora(dataHora):
     try:
@@ -9,6 +14,18 @@ def validarDataHora(dataHora):
     except ValueError:
         return False
 
+def verificarConflito(dataHoraInicio, dataHoraTermino):
+    inicioNovo = datetime.strptime(dataHoraInicio, "%Y-%m-%d %H:%M")
+    terminoNovo = datetime.strptime(dataHoraTermino, "%Y-%m-%d %H:%M")
+    
+    for evento in agenda:
+        inicioExistente = datetime.strptime(evento["inicio"], "%Y-%m-%d %H:%M")
+        terminoExistente = datetime.strptime(evento["termino"], "%Y-%m-%d %H:%M")
+        
+        if (inicioNovo < terminoExistente and terminoNovo > inicioExistente):
+            return True
+    return False
+
 def addEvento(nomeEvento, dataHoraInicio, dataHoraTermino):
     if not validarDataHora(dataHoraInicio):
         print("Erro: A hora de início é inválida. O formato correto é YYYY-MM-DD HH:MM.")
@@ -16,6 +33,10 @@ def addEvento(nomeEvento, dataHoraInicio, dataHoraTermino):
     
     if not validarDataHora(dataHoraTermino):
         print("Erro: A hora de término é inválida. O formato correto é YYYY-MM-DD HH:MM.")
+        return
+    
+    if verificarConflito(dataHoraInicio, dataHoraTermino):
+        print("Erro: Conflito de agendamento detectado.")
         return
     
     evento = {
