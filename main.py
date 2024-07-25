@@ -1,11 +1,17 @@
 from datetime import datetime
 
-agenda = [{
-
-    "nome": "Reunião de equipe",
-    "inicio": "2021-10-01 09:00",
-    "termino": "2021-10-01 10:00"
-}]
+agenda = [
+    {
+        "nome": "Reunião de equipe",
+        "inicio": "2021-10-01 09:00",
+        "termino": "2021-10-01 10:00"
+    },
+    {
+        "nome": "Voleibol",
+        "inicio": "2021-10-03 02:00",
+        "termino": "2021-10-05 19:00"
+    }
+]
 
 def validarDataHora(dataHora):
     try:
@@ -47,20 +53,34 @@ def addEvento(nomeEvento, dataHoraInicio, dataHoraTermino):
     agenda.append(evento)
     print("Evento adicionado com sucesso.")
 
+def listarEventos():
+    if not agenda:
+        print("Não há eventos na agenda.")
+        return
+    
+    for evento in agenda:
+        print(f"Nome: {evento['nome']}")
+        print(f"Início: {evento['inicio']}")
+        print(f"Término: {evento['termino']}")
+        print("")
+
 def main():
     while True:
-        resposta = input("Digite a ação (adicionar, remover, mostrar, sair): ")
+        resposta = input("Digite a ação (adicionar, remover, mostrar, sair): ").strip().lower()
         
         if resposta == "adicionar":
-            nomeEvento = input("Digite o nome do evento: ")
-            horaInicio = input("Digite a hora de início (YYYY-MM-DD HH:MM): ")
-            horaTermino = input("Digite a hora de término (YYYY-MM-DD HH:MM): ")
+            nomeEvento = input("Digite o nome do evento: ").strip()
+            horaInicio = input("Digite a hora de início (YYYY-MM-DD HH:MM): ").strip()
+            horaTermino = input("Digite a hora de término (YYYY-MM-DD HH:MM): ").strip()
             
             addEvento(nomeEvento, horaInicio, horaTermino)
         
         elif resposta == "sair":
             break
         
+        elif resposta == "mostrar":
+            listarEventos()
+
         else:
             print("Ação inválida. Tente novamente.")
         
