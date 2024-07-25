@@ -15,3 +15,11 @@ def test_adicionarEvento():
         "termino": '2024-07-26 14:00'
     }
 
+def test_dataHoraValida():
+
+    assert validarDataHora("Teste falho") is False
+    assert validarDataHora("2024-07-26 12:00") is True
+    
+
+    # Verificar se os horários de início e término estão no horário correto
+    

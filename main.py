@@ -1,10 +1,27 @@
+from datetime import datetime
+
 agenda = []
 
-def addEvento(nomeEvento, horaInicio, horaTermino):
+def validarDataHora(dataHora):
+    try:
+        datetime.strptime(dataHora, "%Y-%m-%d %H:%M")
+        return True
+    except ValueError:
+        return False
+
+def addEvento(nomeEvento, dataHoraInicio, dataHoraTermino):
+    if not validarDataHora(dataHoraInicio):
+        print("Erro: A hora de início é inválida. O formato correto é YYYY-MM-DD HH:MM.")
+        return
+    
+    if not validarDataHora(dataHoraTermino):
+        print("Erro: A hora de término é inválida. O formato correto é YYYY-MM-DD HH:MM.")
+        return
+    
     evento = {
         "nome": nomeEvento,
-        "inicio": horaInicio,
-        "termino": horaTermino
+        "inicio": dataHoraInicio,
+        "termino": dataHoraTermino
     }
     agenda.append(evento)
     print("Evento adicionado com sucesso.")
@@ -19,6 +36,9 @@ def main():
             horaTermino = input("Digite a hora de término (YYYY-MM-DD HH:MM): ")
             
             addEvento(nomeEvento, horaInicio, horaTermino)
+        
+        elif resposta == "sair":
+            break
         
         else:
             print("Ação inválida. Tente novamente.")
