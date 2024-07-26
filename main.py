@@ -1,11 +1,17 @@
 from datetime import datetime
 
-agenda = [{
-
-    "nome": "Reunião de equipe",
-    "inicio": "2021-10-01 09:00",
-    "termino": "2021-10-01 10:00"
-}]
+agenda = [
+    {
+        "nome": "Natação",
+        "inicio": "2024-07-25 09:00",
+        "termino": "2024-07-25 10:00"
+    },
+    {
+        "nome": "Voleibol",
+        "inicio": "2024-07-27 18:00",
+        "termino": "2024-07-27 19:00"
+    }
+]
 
 def validarDataHora(dataHora):
     try:
@@ -55,20 +61,38 @@ def removerEvento(nomeEvento):
             return
     print(f"Erro: Evento '{nomeEvento}' não encontrado.")
 
+def listarEventos():
+    if not agenda:
+        print("Não há eventos na agenda.")
+        return
+    
+    for evento in agenda:
+        print(f"Nome: {evento['nome']}")
+        print(f"Início: {evento['inicio']}")
+        print(f"Término: {evento['termino']}")
+        print("")
+
 def main():
     while True:
-        resposta = input("Digite a ação (adicionar, remover, mostrar, sair): ")
+        resposta = input("Digite a ação (adicionar, remover, mostrar, sair): ").strip().lower()
         
         if resposta == "adicionar":
-            nomeEvento = input("Digite o nome do evento: ")
-            horaInicio = input("Digite a hora de início (YYYY-MM-DD HH:MM): ")
-            horaTermino = input("Digite a hora de término (YYYY-MM-DD HH:MM): ")
+            nomeEvento = input("Digite o nome do evento: ").strip()
+            horaInicio = input("Digite a hora de início (YYYY-MM-DD HH:MM): ").strip()
+            horaTermino = input("Digite a hora de término (YYYY-MM-DD HH:MM): ").strip()
             
             addEvento(nomeEvento, horaInicio, horaTermino)
         
+        elif resposta == "remover":
+            nomeEventoRemover = input("Digite o nome do evento para remover: ").strip()
+            removerEvento(nomeEventoRemover)
+        
+        elif resposta == "mostrar":
+            listarEventos()
+        
         elif resposta == "sair":
             break
-        
+
         else:
             print("Ação inválida. Tente novamente.")
         
