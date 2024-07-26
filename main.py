@@ -2,14 +2,14 @@ from datetime import datetime
 
 agenda = [
     {
-        "nome": "Reunião de equipe",
-        "inicio": "2021-10-01 09:00",
-        "termino": "2021-10-01 10:00"
+        "nome": "Natação",
+        "inicio": "2024-07-25 09:00",
+        "termino": "2024-07-25 10:00"
     },
     {
         "nome": "Voleibol",
-        "inicio": "2021-10-03 02:00",
-        "termino": "2021-10-05 19:00"
+        "inicio": "2024-07-27 18:00",
+        "termino": "2024-07-27 19:00"
     }
 ]
 
@@ -53,6 +53,14 @@ def addEvento(nomeEvento, dataHoraInicio, dataHoraTermino):
     agenda.append(evento)
     print("Evento adicionado com sucesso.")
 
+def removerEvento(nomeEvento):
+    for evento in agenda:
+        if evento['nome'].lower() == nomeEvento.lower():
+            agenda.remove(evento)
+            print(f"Evento '{nomeEvento}' removido com sucesso.")
+            return
+    print(f"Erro: Evento '{nomeEvento}' não encontrado.")
+
 def listarEventos():
     if not agenda:
         print("Não há eventos na agenda.")
@@ -75,11 +83,15 @@ def main():
             
             addEvento(nomeEvento, horaInicio, horaTermino)
         
-        elif resposta == "sair":
-            break
+        elif resposta == "remover":
+            nomeEventoRemover = input("Digite o nome do evento para remover: ").strip()
+            removerEvento(nomeEventoRemover)
         
         elif resposta == "mostrar":
             listarEventos()
+        
+        elif resposta == "sair":
+            break
 
         else:
             print("Ação inválida. Tente novamente.")
